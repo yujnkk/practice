@@ -1,0 +1,304 @@
+"======================================================================================== 
+" vundle
+"========================================================================================
+set nocompatible              " be improved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+"execute pathogen#infect()
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" original repos on github
+"Bundle 'mileszs/ack.vim'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/ListToggle'
+"Bundle 'scrooloose/syntastic'
+"括号补全插件
+"Bundle 'Townk/vim-autoclose'
+Bundle 'Raimondi/delimitMate' 
+
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'majutsushi/tagbar'
+"....................................................
+" vim-scripts repos
+Bundle 'taglist.vim'
+" Bundle 'c.vim'
+Bundle 'grep.vim'
+"Bundle 'minibufexpl.vim'
+Bundle 'a.vim'
+"....................................................
+" non github repos
+
+"....................................................
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+"========================================================================================
+
+
+
+
+"========================================================================================
+" vim-colors-solarized
+"========================================================================================
+syntax enable
+if has('gui_running')
+    set background=dark "light
+else
+    set background=dark "light
+endif
+colorscheme solarized
+call togglebg#map("<F5>") " map F5 to toggole background
+"========================================================================================
+
+
+
+"========================================================================================
+" basic configuration
+"========================================================================================
+" 语法高亮
+syntax enable
+syntax on
+
+" 配色方案
+colorscheme solarized
+"colorsceme desert
+"font
+set guifont=Monaco:h15
+
+" 自动切换目录
+set autochdir
+
+" 行号
+set nu
+
+" 窗口设置
+if has('gui_running')      " 使用GUI界面时的设置
+ set lines=50 columns=160 " 设定窗口大小
+     set guioptions+=c        " 使用字符提示框
+     set guioptions-=m        " 隐藏菜单栏
+     "set guioptions-=T        " 隐藏工具栏
+     set guioptions-=L        " 隐藏左侧滚动条
+     "set guioptions-=r        " 隐藏右侧滚动条
+     set guioptions-=b        " 隐藏底部滚动条
+     "set showtabline=0       " 隐藏Tab栏
+     set cursorline           " 突出显示当前行
+	 set ruler                " 打开状态标尺栏
+ endif
+
+ "backspace键
+set nocompatible  " 取消vi一致性
+set whichwrap+=<,>,h,l " 允许backspace和光标键跨越行边界
+set backspace=indent,eol,start " indent-删除自动缩进 eol-合并两行 start-删除光标字符
+
+" 制表符
+set tabstop=2
+set softtabstop=2
+
+" 缩进空格数
+set shiftwidth=2
+
+" 自动缩进
+set autoindent
+set cindent  " C/C++语言的缩进格式
+set cinoptions={0,1s,t0,n-2,p2s,(03s,=.5s,>1s,=1s,:1s " C/C++语言的具体缩进格式
+
+" 默认编码
+set fileencoding=utf-8 fileencodings=ucs-bom,utf-9,cp936,GBK,GB18030,GB2312  
+set fenc=utf-8
+set fencs=utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
+set encoding=utf-8
+
+" 窗口按钮 
+" set go        " 不显示菜单栏
+set go=r        " 右侧显示下拉条
+
+ " 折叠
+set foldenable
+set foldmethod=manual     "手动折叠
+
+" 文件改动自动载入
+" set autoread
+
+" 共享剪贴板
+set clipboard+=unnamed
+
+
+"高亮显示匹配括号
+set showmatch
+
+"匹配括号高亮显示时间（单位十分之一秒）
+set matchtime=3
+
+syntax on
+
+filetype plugin indent on
+
+"自动补全设置
+"inoremap ( ()<Esc>i
+"inoremap [ []<Esc>i
+"inoremap { {<CR>}<Esc>O
+"========================================================================================
+
+
+
+
+
+"========================================================================================
+" keyboard map
+"========================================================================================
+" 映射全选 ctrl+a
+map <C-A> ggVG
+map <C-A> <Esc> ggVG
+"map <F12> gg=G "自动缩进
+
+" 选中状态下 ctrl+c 复制到全局剪切板
+vmap <C-c> "+y
+
+" 选中状态下 ctrl+x 剪切到全局剪切板
+vmap <C-x> "+x
+
+" ctrl+v 从全局剪切板粘贴
+map <C-v> "+gP
+imap <C-v> <Esc><C-v>a
+"inoremap <c-v> <esc>a<space><esc>:set paste<cr>mui<C-R>+<esc>mv’uV’v=:set nopaste<cr>
+
+" F12 自动缩进
+"map <F12> gg=G "自动缩进 
+"========================================================================================
+
+
+
+
+"========================================================================================
+" ctags && taglist
+"========================================================================================
+" 自动切换目录
+set autochdir
+set tags=tags;
+
+" taglist
+" \tl                 打开Taglist/TxtBrowser窗口，在右侧栏显示
+nmap <leader>tl :Tlist<CR><c-l>
+" :Tlist              调用TagList
+let Tlist_Show_One_File        = 1             " 只显示当前文件的tags
+let Tlist_Exit_OnlyWindow      = 1             " 如果Taglist窗口是最后一个窗口则退出Vim
+let Tlist_Use_Right_Window     = 1             " 在右侧窗口中显示
+let Tlist_File_Fold_Auto_Close = 1             " 自动折叠
+"========================================================================================
+
+
+
+
+
+"=========================================================================================
+" youcompleteme
+"=========================================================================================
+" 让Vim的补全菜单行为与一般IDE一致
+set completeopt=longest,menu	
+
+"options 
+
+let g:ycm_confirm_extra_conf=0 "关闭加载.ycm_extra_conf.py提示
+
+let g:ycm_auto_trigger = 1 " 自动开启标识符补全和语义补全
+
+let g:ycm_show_diagnostics_ui = 1 " 打开YCM诊断提示特性
+		
+let g:ycm_error_symbol = '!'   " error 提示
+let g:ycm_waring_symbol = '>'  " warning 提示
+
+let g:ycm_enable_diagnostic_signs = 1 " 允许在vim的左边框使用提示
+let g:ycm_enable_diagnostic_highlighting = 1 
+let g:ycm_echo_current_diagnostic = 1 "游标处的提示
+
+let g:ycm_always_populate_location_list = 1 " VIM的位置列表中的诊断信息，默认关闭
+let g:ycm_open_loclist_on_ycm_diags = 1 " :YcmDiags 命令自动开打位置列表
+
+let g:ycm_complete_in_comments = 1 " 允许内部注释的补全
+let g:ycm_complete_in_strings = 1  " 允许字符串补全，例如文件名
+let g:ycm_collect_identifiers_from_comments_and_strings = 1 " 允许将注释和字符串的内容加入到补全列表中
+
+let g:ycm_collect_identifiers_from_tags_files = 1 " 允许从tags文件中搜集补全标识符，仅支持Exnberant Ctags格式
+
+let g:ycm_seed_identifiers_with_syntax = 1 " 用文件类型对应的编程语言的关键字初始化补全数据库
+
+let g:ycm_add_preview_to_completeopt = 0 " 将预览字符串加入到Vim的completeopt中
+
+let g:ycm_autoclose_preview_window_after_completion = 0  " 接受补全提示字符串后关闭预览窗口
+let g:ycm_autoclose_preview_window_after_insertion = 1   " 离开插入模式后关闭预览窗口
+
+let g:ycm_max_diagnostics_to_display = 30  " 显示诊断信息的最大数目
+
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>']
+
+let g:ycm_key_invoke_completion = '<S-Space>' " 自动触发补全
+
+let g:ycm_key_detailed_diagnostics = '<leader>d' " 游标处显示详细的诊断信息
+
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
+let g:ycm_min_num_of_chars_for_completion=2	" 从第2个键入字符就开始罗列匹配项
+
+
+" 触发语义补全的选项
+let g:ycm_semantic_triggers = {
+	\     'c' : ['->', '.', ' ', '(', '[', '&'],
+	\     'cpp,objcpp' : ['->', '.', ' ', '(', '[', '&', '::'],
+	\     'perl' : ['->', '::'],
+	\     'php' : ['->', '::', '.'],
+	\     'cs,java,javascript,d,vim,python,perl6,scala,vb,elixir,go' : ['.'],
+	\     'ruby' : ['.', '::'],
+	\     'lua' : ['.', ':']
+	\ }
+
+let g:ycm_cache_omnifunc=0	" 禁止缓存匹配项,每次都重新生成匹配项
+
+" debug
+" let g:ycm_server_use_vim_stdout = 1
+" let g:ycm_server_log_level = 'debug'
+
+
+" 定义跳转
+nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR> " 跳转到声明
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR> " 跳转到定义处
+nnoremap <leader>go :YcmCompleter GoTo<CR>  "跳转到定义出，否则跳转到声明处
+nnoremap <leader>gt :YcmCompleter GetType<CR> "获取游标处对象的类型
+nnoremap <leader>gp :YcmCompleter GetParent<CR> "获取游标处对象的作用域
+"=========================================================================================
+
+
+
+
+"=========================================================================================
+" other plugin
+"=========================================================================================
+" nerdcommenter 
+let NERDSpaceDelims=1
+
+
+" ListToggle
+let g:lt_location_list_toggle_map = '<leader>l'
+let g:lt_quickfix_list_toggle_map = '<leader>q'
+let g:lt_height = 5     " the height (number of lines) of spwaned window
+
+" powerline
+"if want to use fancy,need to add font patch -> git clone git://gist.github.com/1630581.git ~/.fonts/ttf-dejavu-powerline
+"let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols = 'unicode'
+set laststatus=2
+
+"tagbar
+nmap <leader>tb :TagbarToggle<CR>  " \tb 打开tagbar窗口
+let g:tagbar_autofocus = 1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+map <C-n> :NERDTreeToggle<CR>
+"autocmd VimEnter * wincmd p
+"=========================================================================================
